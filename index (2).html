@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Technical Help Pawan</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    
+    :root {
+      --bg-color: linear-gradient(to bottom right, #f12711, #f5af19);
+      --text-color: #fff;
+      --card-bg: rgba(255, 255, 255, 0.15);
+      --button-bg: #fff;
+      --button-text: #111;
+      --button-hover-bg: #111;
+      --button-hover-text: #fff;
+      --header-bg: rgba(0, 0, 0, 0.7);
+      --footer-bg: rgba(0, 0, 0, 0.7);
+      --accent-color: #f5af19;
+      --shadow-color: rgba(0,0,0,0.3);
+    }
+    
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --card-bg: rgba(30, 30, 30, 0.8);
+      --button-bg: #333;
+      --button-text: #fff;
+      --button-hover-bg: #555;
+      --button-hover-text: #fff;
+      --header-bg: rgba(20, 20, 20, 0.9);
+      --footer-bg: rgba(20, 20, 20, 0.9);
+      --accent-color: #f5af19;
+      --shadow-color: rgba(0,0,0,0.5);
+    }
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+    
+    .header {
+      background: var(--header-bg);
+      padding: 12px 15px;
+      box-shadow: 0 4px 12px var(--shadow-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+    
+    .logo-wrapper {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--text-color);
+      box-shadow: 0 0 8px var(--shadow-color);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .logo-wrapper::before {
+      content: "";
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(to right, #f12711, #f5af19);
+      z-index: 1;
+      animation: rotate 4s linear infinite;
+    }
+    
+    .channel-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .channel-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+    
+    .channel-name span {
+      color: var(--accent-color);
+    }
+    
+    .youtube-icon {
+      color: red;
+      font-size: 1.2rem;
+      margin-left: 5px;
+    }
+    
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .theme-btn {
+      background: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      padding: 6px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+      box-shadow: 0 2px 5px var(--shadow-color);
+    }
+    
+    .theme-btn:hover {
+      background: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+    
+    .theme-btn.active {
+      background: var(--accent-color);
+      color: #111;
+    }
+    
+    .theme-icon {
+      display: none; /* Hide text on small screens */
+    }
+    
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .main-content {
+      padding: 15px;
+      max-width: 100%;
+      margin: 0 auto;
+      flex: 1;
+      width: 100%;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-color);
+      text-shadow: 1px 1px 2px var(--shadow-color);
+      margin: 12px 0;
+    }
+    
+    .card {
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px var(--shadow-color);
+      backdrop-filter: blur(6px);
+      transition: transform 0.3s ease;
+      margin: 12px 0;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    button, .download-btn {
+      background: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      padding: 10px 15px;
+      margin-top: 12px;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      width: 100%;
+      justify-content: center;
+    }
+    
+    button:hover, .download-btn:hover {
+      background: var(--button-hover-bg);
+      color: var(--button-hover-text);
+      box-shadow: 0 5px 15px var(--shadow-color);
+    }
+    
+    .app-img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      margin-bottom: 8px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.9);
+      padding: 6px;
+      box-shadow: 0 0 8px var(--shadow-color);
+    }
+    
+    #confirmSection, #downloads, #downloadAppCard {
+      display: none;
+    }
+    
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin: 15px auto;
+      width: 100%;
+    }
+    
+    .app-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px;
+    }
+    
+    .app-card h3 {
+      margin: 8px 0;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    
+    .footer {
+      background: var(--footer-bg);
+      padding: 12px 0;
+      width: 100%;
+      backdrop-filter: blur(8px);
+      margin-top: auto;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 4px;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+    
+    .copyright {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 8px;
+    }
+
+    /* Medium devices (tablets, 600px and up) */
+    @media (min-width: 600px) {
+      .header {
+        padding: 15px 20px;
+      }
+      
+      .logo-wrapper {
+        width: 55px;
+        height: 55px;
+      }
+      
+      .logo {
+        width: 48px;
+        height: 48px;
+      }
+      
+      .logo-wrapper::before {
+        width: 55px;
+        height: 55px;
+      }
+      
+      .channel-name {
+        font-size: 1.1rem;
+      }
+      
+      .youtube-icon {
+        font-size: 1.3rem;
+      }
+      
+      .theme-btn {
+        padding: 7px 12px;
+        font-size: 0.9rem;
+      }
+      
+      .main-content {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .app-img {
+        width: 55px;
+        height: 55px;
+      }
+    }
+
+    /* Large devices (desktops, 768px and up) */
+    @media (min-width: 768px) {
+      .header {
+        padding: 15px 30px;
+      }
+      
+      .logo-wrapper {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .logo {
+        width: 54px;
+        height: 54px;
+      }
+      
+      .logo-wrapper::before {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .channel-name {
+        font-size: 1.2rem;
+      }
+      
+      .youtube-icon {
+        font-size: 1.5rem;
+      }
+      
+      .theme-btn {
+        padding: 8px 15px;
+      }
+      
+      .theme-icon {
+        display: inline; /* Show text on larger screens */
+      }
+      
+      .main-content {
+        padding: 25px 30px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .apps-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 15px;
+      }
+      
+      .app-img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    /* Extra large devices (large desktops, 992px and up) */
+    @media (min-width: 992px) {
+      .header {
+        padding: 15px 40px;
+      }
+      
+      .logo-wrapper {
+        width: 65px;
+        height: 65px;
+      }
+      
+      .logo {
+        width: 58px;
+        height: 58px;
+      }
+      
+      .logo-wrapper::before {
+        width: 65px;
+        height: 65px;
+      }
+      
+      .channel-name {
+        font-size: 1.3rem;
+      }
+      
+      .main-content {
+        padding: 30px 40px;
+      }
+      
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .apps-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+      }
+      
+      .app-img {
+        width: 65px;
+        height: 65px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="logo-container">
+      <div class="logo-wrapper">
+        <img src="/pawan.png" alt="Channel Logo" class="logo">
+      </div>
+      <div class="channel-info">
+        <div class="channel-name">
+          Technical <span>Help</span> Pawan
+        </div>
+        <a href="https://www.youtube.com/@Pawan___pal" target="_blank" class="youtube-icon">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+    </div>
+    <div class="theme-switcher">
+      <button class="theme-btn" id="lightBtn">
+        <i class="fas fa-sun"></i>
+        <span class="theme-icon">Light</span>
+      </button>
+      <button class="theme-btn" id="darkBtn">
+        <i class="fas fa-moon"></i>
+        <span class="theme-icon">Dark</span>
+      </button>
+    </div>
+  </header>
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>🚀 Premium Mod Apps</h1>
+    <p style="font-size: 16px; opacity: 0.9; margin-bottom: 20px;">Subscribe to download premium mod apps for free</p>
+    
+    <!-- Step 1 - Subscribe Section -->
+    <div class="card" id="subscribeCard" style="display: none;">
+      <h2>🔔 Step 1: Subscribe to our Channel</h2>
+      <h4 style="font-weight: normal; opacity: 0.9; margin-bottom: 20px;">पहले चैनल को सब्सक्राइब करें, बाद में डाउनलोड लिंक मिलेगी</h4>
+      <a href="https://www.youtube.com/@Pawan___pal?sub_confirmation=1" target="_blank" rel="noopener" onclick="afterSubscribe()">
+        <button><i class="fab fa-youtube"></i> Subscribe Now</button>
+      </a>
+    </div>
+    
+    <!-- Step 2 - Confirmation after subscribing -->
+    <div class="card" id="confirmSection">
+      <h2>✅ Step 2: Confirm Subscribe?</h2>
+      <h4 style="font-weight: normal; opacity: 0.9; margin-bottom: 20px;">क्या आपने चैनल को सब्सक्राइब कर लिया? YES पर क्लिक करें, नहीं तो NO पर क्लिक करें</h4>
+      <div style="display: flex; justify-content: center; gap: 15px;">
+        <button style="background-color: green;" onclick="handleConfirm(true)">✔️ Yes</button>
+        <a href="https://www.youtube.com/@Pawan___pal?sub_confirmation=1" target="_blank" rel="noopener">
+          <button style="background-color: darkred; color: wheat;">❌ No</button>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Step 3 - Downloads section -->
+    <div id="downloads">
+      <div class="apps-grid">
+        <div class="card app-card">
+          <img src="/paytm.png" class="app-img" alt="Paytm Logo"/>
+          <h3>💸 Paytm Pay</h3>
+          <a class="download-btn" href="#" onclick="handleDownload('https://www.mediafire.com/file/lm0buduly0dwhom/Paytm.apk/file', '/files/paytm.png', 'Paytm Pay')">
+            <i class="fas fa-download"></i> Download
+          </a>
+        </div>
+        <div class="card app-card">
+          <img src="/google.png" class="app-img" alt="Google Pay Logo"/>
+          <h3>📱 GPay Mod</h3>
+          <a class="download-btn" href="#" onclick="handleDownload('https://www.mediafire.com/file/qqgfn3qbquupz2u/GPay_1.1.apk/file', '/files/google.png', 'GPay Mod')">
+            <i class="fas fa-download"></i> Download
+          </a>
+        </div>
+        <div class="card app-card">
+          <img src="/phonepe.png" class="app-img" alt="PhonePe Logo"/>
+          <h3>💸 PhonePe Premium</h3>
+          <a class="download-btn" href="#" onclick="handleDownload('https://www.mediafire.com/file/u16235nrk2o5ioe/PhonePe.apk/file', '/files/phonepe.png', 'PhonePe Premium')">
+            <i class="fas fa-download"></i> Download
+          </a>
+        </div>
+        <div class="card app-card">
+          <img src="/black phonepay.jpeg" class="app-img" alt="PhonePe 2 Logo"/>
+          <h3>🪙 Phone Pay2</h3>
+          <a class="download-btn" href="#" onclick="handleDownload('https://www.mediafire.com/file/8za3118czg8qkwh/PhonePe_1.0.apk/file', '/files/black phonepay.jpeg', 'Phone Pay2')">
+            <i class="fas fa-download"></i> Download
+          </a>
+        </div>
+        <div class="card app-card">
+          <img src="/supermony.png" class="app-img" alt="Supermony Logo"/>
+          <h3>🪙 Supermony Mod</h3>
+          <a class="download-btn" href="#" onclick="handleDownload('https://www.mediafire.com/file/gizzt0yam1jfnee/Super+Pay_.apk/file', '/files/supermony.png', 'Supermony Mod')">
+            <i class="fas fa-download"></i> Download
+          </a>
+        </div>
+        <div class="card app-card">
+          <img src="/fam.png" class="app-img" alt="Fam Logo"/>
+          <h3>💸 Fam Mod</h3>
+          <a class="download-btn" href="#" onclick="handleDownload('https://www.mediafire.com/file/popillht5k7h8qh/FamApp_1.0.apk/file', '/files/fam.png', 'Fam Mod')">
+            <i class="fas fa-download"></i> Download
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Final Download Card -->
+    <div class="card" id="downloadAppCard">
+      <img id="downloadAppImage" src="" class="app-img" alt="App Logo"/>
+      <h3 id="downloadAppName"></h3>
+      <a id="realDownloadBtn" class="download-btn" href="#" onclick="initiateDownload()">
+        <i class="fas fa-download"></i> Download Now
+      </a>
+    </div>
+  </div>
+  
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="https://www.youtube.com/@Pawan___pal" target="_blank">
+        <i class="fab fa-youtube"></i> YouTube
+      </a>
+      <a href="#" onclick="alert('Coming soon!')"><i class="fas fa-question-circle"></i> Help</a>
+      <a href="#" onclick="alert('Coming soon!')"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+      <a href="#" onclick="alert('Coming soon!')"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+    <div class="copyright">
+      &copy; 2023 Technical Help Pawan. All Rights Reserved.
+    </div>
+  </footer>
+  
+  <script>
+    // Theme Toggle Functionality
+    const lightBtn = document.getElementById('lightBtn');
+    const darkBtn = document.getElementById('darkBtn');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Check for saved theme or prefered scheme
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+      document.body.setAttribute('data-theme', 'dark');
+      darkBtn.classList.add('active');
+    } else {
+      document.body.setAttribute('data-theme', 'light');
+      lightBtn.classList.add('active');
+    }
+    
+    lightBtn.addEventListener('click', () => {
+      document.body.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+      lightBtn.classList.add('active');
+      darkBtn.classList.remove('active');
+    });
+    
+    darkBtn.addEventListener('click', () => {
+      document.body.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+      darkBtn.classList.add('active');
+      lightBtn.classList.remove('active');
+    });
+    
+    // Original app functionality
+    let selectedDownload = {
+      url: "",
+      image: "",
+      name: ""
+    };
+    
+    function handleDownload(downloadUrl, imageUrl, appName) {
+      selectedDownload = {
+        url: downloadUrl,
+        image: imageUrl,
+        name: appName
+      };
+        
+      document.getElementById("downloads").style.display = "none";
+      document.getElementById("downloadAppCard").style.display = "none";
+      document.getElementById("subscribeCard").style.display = "block";
+      document.getElementById("confirmSection").style.display = "none";
+      window.scrollTo(0, 0);
+    }
+    
+    function afterSubscribe() {
+      localStorage.setItem("visitedAfterSubscribe", "true");
+      localStorage.setItem("selectedDownloadUrl", selectedDownload.url);
+      localStorage.setItem("selectedDownloadImage", selectedDownload.image);
+      localStorage.setItem("selectedDownloadName", selectedDownload.name);
+    }
+    
+    function initiateDownload() {
+      window.open(selectedDownload.url, '_blank');
+      return false;
+    }
+    
+    window.onload = function() {
+      const redirected = localStorage.getItem("visitedAfterSubscribe");
+      const storedUrl = localStorage.getItem("selectedDownloadUrl");
+      const storedImage = localStorage.getItem("selectedDownloadImage");
+      const storedName = localStorage.getItem("selectedDownloadName");
+        
+      if (redirected === "true") {
+        document.getElementById("subscribeCard").style.display = "none";
+        document.getElementById("confirmSection").style.display = "block";
+        document.getElementById("downloads").style.display = "none";
+        document.getElementById("downloadAppCard").style.display = "none";
+          
+        selectedDownload = {
+          url: storedUrl,
+          image: storedImage,
+          name: storedName
+        };
+          
+        localStorage.removeItem("visitedAfterSubscribe");
+      } else {
+        document.getElementById("downloads").style.display = "block";
+        document.getElementById("subscribeCard").style.display = "none";
+        document.getElementById("confirmSection").style.display = "none";
+        document.getElementById("downloadAppCard").style.display = "none";
+      }
+    };
+    
+    function handleConfirm(answer) {
+      if (answer) {
+        document.getElementById("confirmSection").style.display = "none";
+        document.getElementById("downloadAppCard").style.display = "block";
+          
+        document.getElementById("downloadAppImage").src = selectedDownload.image;
+        document.getElementById("downloadAppName").textContent = selectedDownload.name;
+        document.getElementById("realDownloadBtn").href = "#";
+          
+        localStorage.removeItem("selectedDownloadUrl");
+        localStorage.removeItem("selectedDownloadImage");
+        localStorage.removeItem("selectedDownloadName");
+      }
+    }
+  </script>
+</body>
+</html>
